@@ -1,0 +1,967 @@
+{
+	"info": {
+		"_postman_id": "ec3562e4-d5e7-4329-bcf0-1477465561c2",
+		"name": "Full Stack Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "449ecd5f-d33b-4c7f-855e-6592f8737121",
+						"exec": [
+							"pm.test(\"List of users is an array\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(Array.isArray(jsonData.users)).to.eql(true);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/api/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sign-In",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bb65b813-173d-4ed9-9f25-bfbb7ff01972",
+						"exec": [
+							"var url = \"http://localhost:5000/api/v1/product/owned\";",
+							"var method = 'POST';",
+							"",
+							"pm.test(\"Sign-in with invalid credentials should return error\", function () {",
+							"    pm.sendRequest({",
+							"        url: url, ",
+							"        method: method,",
+							"        header: {",
+							"            \"Content-Type\": \"application/json\"",
+							"        },",
+							"        body: {",
+							"            mode: 'raw',",
+							"            raw: JSON.stringify({",
+							"            \t\"email\": \"john.doe@mailinator.com\",",
+							"            \t\"password\": \"4aSU89JKASD\"",
+							"            })",
+							"        },",
+							"    }, function (err, response) {",
+							"        pm.expect(response).to.have.status(401);",
+							"    });",
+							"});",
+							"pm.test(\"Successful login should contain a bearer token\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.response.to.have.jsonBody('token')",
+							"    pm.globals.set(\"bearer_token\", jsonData.token);",
+							"    pm.response.to.have.jsonBody('user_id')",
+							"    pm.globals.set(\"user_id\", jsonData.user_id);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"leon.kennedy@secretservice.gov\",\n\t\"password\": \"cLXLkR^<UW]Qx2Fe\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/signin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aadc48d8-fa8d-4673-8274-79b8ccbf30f5",
+						"exec": [
+							"var url = \"http://localhost:5000/api/v1/product/add\";\r",
+							"var method = 'POST';\r",
+							"\r",
+							"pm.test(\"Add product without bearer token should fail\", function () {\r",
+							"    pm.sendRequest({\r",
+							"      url: url, \r",
+							"      method: method,\r",
+							"      header: {},\r",
+							"      body: {}\r",
+							"    }, function (error, response) {\r",
+							"        pm.expect(response).to.have.status(401);\r",
+							"    });\r",
+							"});\r",
+							"pm.test(\"Add product without all required params should fail - No Name\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: url,\r",
+							"        method: method,\r",
+							"        header: {\r",
+							"            'Authorization': \"Bearer: \" + pm.globals.get(\"bearer_token\"),\r",
+							"            'Content-Type': 'application/json'\r",
+							"        },\r",
+							"        body: {\r",
+							"          mode: 'raw',\r",
+							"          raw: JSON.stringify({\r",
+							"                \"description\": \"An ink ribbon. Required when using a Typewriter.\",\r",
+							"                \"price\": \"59.99\",\r",
+							"                \"image\": \"https://www.evilresource.com/images/entities/full/re2remake/ink-ribbon.png\"\r",
+							"            })\r",
+							"        },\r",
+							"    }, function (error, response) {\r",
+							"        pm.expect(response).to.have.status(400);\r",
+							"    });\r",
+							"});\r",
+							"pm.test(\"Add product without all required params should fail - No Desc\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: url,\r",
+							"        method: method,\r",
+							"        header: {\r",
+							"            'Authorization': \"Bearer: \" + pm.globals.get(\"bearer_token\"),\r",
+							"            'Content-Type': 'application/json'\r",
+							"        },\r",
+							"        body:{\r",
+							"          mode: 'raw',\r",
+							"          raw: JSON.stringify({\r",
+							"            \t\"name\": \"Ink Ribbon\",\r",
+							"            \t\"price\": \"59.99\",\r",
+							"            \t\"image\": \"https://www.evilresource.com/images/entities/full/re2remake/ink-ribbon.png\"\r",
+							"            })\r",
+							"        }, \r",
+							"    }, function (error, response) {\r",
+							"        pm.expect(response).to.have.status(400);\r",
+							"    });\r",
+							"});\r",
+							"pm.test(\"Add product without all required params should fail - No Price\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: url,\r",
+							"        method: method,\r",
+							"        header: {\r",
+							"            'Authorization': \"Bearer: \" + pm.globals.get(\"bearer_token\"),\r",
+							"            'Content-Type': 'application/json'\r",
+							"        },\r",
+							"        body: {\r",
+							"          mode: 'raw',\r",
+							"          raw: JSON.stringify({\r",
+							"            \t\"name\": \"Ink Ribbon\",\r",
+							"            \t\"description\": \"An ink ribbon. Required when using a Typewriter.\",\r",
+							"            \t\"image\": \"https://www.evilresource.com/images/entities/full/re2remake/ink-ribbon.png\"\r",
+							"            })\r",
+							"        },\r",
+							"    }, function (error, response) {\r",
+							"        pm.expect(response).to.have.status(400);\r",
+							"    });\r",
+							"});\r",
+							"pm.test(\"Add product with all required params should succeed\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: url,\r",
+							"        method: method,\r",
+							"        header: {\r",
+							"            'Authorization': \"Bearer: \" + pm.globals.get(\"bearer_token\"),\r",
+							"            'Content-Type': 'application/json'\r",
+							"        },\r",
+							"        body: {\r",
+							"          mode: 'raw',\r",
+							"          raw: JSON.stringify({\r",
+							"            \t\"name\": \"Ink Ribbon\",\r",
+							"            \t\"description\": \"An ink ribbon. Required when using a Typewriter.\",\r",
+							"            \t\"price\": \"59.99\",\r",
+							"            \t\"image\": \"https://www.evilresource.com/images/entities/full/re2remake/ink-ribbon.png\"\r",
+							"            })\r",
+							"        }\r",
+							"    }, function (error, response) {\r",
+							"        var jsonData = response.json();\r",
+							"        pm.expect(response).to.have.status(200);\r",
+							"        pm.expect(response).to.have.jsonBody('product');\r",
+							"        pm.globals.set(\"product_id\", jsonData.product.id);\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNCIsImlhdCI6MTU3ODEzMzg2NiwiZXhwIjoxNTc4MTM3NDY2fQ.2U-ibaShcJPtSxHAc7dHAMGhca1TfBozWqHA268ogoA",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"First Aid Spray\",\n\t\"description\": \"Heals all wounds, single use only\",\n\t\"price\": \"39.99\",\n\t\"image\": \"https://www.evilresource.com/images/entities/full/remake/first-aid-spray.png\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/product/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"product",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6e09f866-477a-4f77-a9f0-7f5e4f14c9d4",
+						"exec": [
+							"var url = \"http://localhost:5000/api/v1/product/update\";\r",
+							"var method = 'POST';\r",
+							"var product_id = pm.globals.get(\"product_id\");\r",
+							"\r",
+							"pm.test(\"Update product without bearer token should fail\", function () {\r",
+							"    pm.sendRequest({\r",
+							"      url: url, \r",
+							"      method: method,\r",
+							"      header: {},\r",
+							"      body: {}\r",
+							"    }, function (error, response) {\r",
+							"        pm.expect(response['code']).to.eql(401);\r",
+							"    });\r",
+							"});\r",
+							"pm.test(\"Update product without all required params should fail - No ID\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: url,\r",
+							"        method: method,\r",
+							"        header: {\r",
+							"            'Authorization': \"Bearer: \" + pm.globals.get(\"bearer_token\"),\r",
+							"            'Content-Type': 'application/json'\r",
+							"        },\r",
+							"        body: {\r",
+							"          mode: 'raw',\r",
+							"          raw: JSON.stringify({\r",
+							"                \"name\": \"Ink Ribbon\",\r",
+							"                \"description\": \"An ink ribbon. Required when using a Typewriter.\",\r",
+							"                \"price\": \"19.99\",\r",
+							"                \"image\": \"https://www.evilresource.com/images/entities/full/re2remake/ink-ribbon.png\"\r",
+							"            })\r",
+							"        },\r",
+							"    }, function (error, response) {\r",
+							"        pm.expect(response['code']).to.eql(400);\r",
+							"    });\r",
+							"});\r",
+							"pm.test(\"Update product without all required params should fail - No Name\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: url,\r",
+							"        method: method,\r",
+							"        header: {\r",
+							"            'Authorization': \"Bearer: \" + pm.globals.get(\"bearer_token\"),\r",
+							"            'Content-Type': 'application/json'\r",
+							"        },\r",
+							"        body: {\r",
+							"          mode: 'raw',\r",
+							"          raw: JSON.stringify({\r",
+							"                \"product_id\": product_id,\r",
+							"                \"description\": \"An ink ribbon. Required when using a Typewriter.\",\r",
+							"                \"price\": \"19.99\",\r",
+							"                \"image\": \"https://www.evilresource.com/images/entities/full/re2remake/ink-ribbon.png\"\r",
+							"            })\r",
+							"        },\r",
+							"    }, function (error, response) {\r",
+							"        pm.expect(response['code']).to.eql(400);\r",
+							"    });\r",
+							"});\r",
+							"pm.test(\"Update product without all required params should fail - No Desc\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: url,\r",
+							"        method: method,\r",
+							"        header: {\r",
+							"            'Authorization': \"Bearer: \" + pm.globals.get(\"bearer_token\"),\r",
+							"            'Content-Type': 'application/json'\r",
+							"        },\r",
+							"        body:{\r",
+							"          mode: 'raw',\r",
+							"          raw: JSON.stringify({\r",
+							"                \"product_id\": product_id,\r",
+							"                \"name\": \"Ink Ribbon\",\r",
+							"                \"price\": \"19.99\",\r",
+							"                \"image\": \"https://www.evilresource.com/images/entities/full/re2remake/ink-ribbon.png\"\r",
+							"            })\r",
+							"        }, \r",
+							"    }, function (error, response) {\r",
+							"        pm.expect(response['code']).to.eql(400);\r",
+							"    });\r",
+							"});\r",
+							"pm.test(\"Update product without all required params should fail - No Price\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: url,\r",
+							"        method: method,\r",
+							"        header: {\r",
+							"            'Authorization': \"Bearer: \" + pm.globals.get(\"bearer_token\"),\r",
+							"            'Content-Type': 'application/json'\r",
+							"        },\r",
+							"        body: {\r",
+							"          mode: 'raw',\r",
+							"          raw: JSON.stringify({\r",
+							"                \"product_id\": product_id,\r",
+							"                \"name\": \"Ink Ribbon\",\r",
+							"                \"description\": \"An ink ribbon. Required when using a Typewriter.\",\r",
+							"                \"image\": \"https://www.evilresource.com/images/entities/full/re2remake/ink-ribbon.png\"\r",
+							"            })\r",
+							"        },\r",
+							"    }, function (error, response) {\r",
+							"        pm.expect(response['code']).to.eql(400);\r",
+							"    });\r",
+							"});\r",
+							"pm.test(\"Update product with all required params should succeed\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: url,\r",
+							"        method: method,\r",
+							"        header: {\r",
+							"            'Authorization': \"Bearer: \" + pm.globals.get(\"bearer_token\"),\r",
+							"            'Content-Type': 'application/json'\r",
+							"        },\r",
+							"        body: {\r",
+							"          mode: 'raw',\r",
+							"          raw: JSON.stringify({\r",
+							"                \"product_id\": product_id,\r",
+							"                \"name\": \"Ink Ribbon\",\r",
+							"                \"description\": \"An ink ribbon. Required when using a Typewriter.\",\r",
+							"                \"price\": \"59.99\",\r",
+							"                \"image\": \"https://www.evilresource.com/images/entities/full/re2remake/ink-ribbon.png\"\r",
+							"            })\r",
+							"        }\r",
+							"    }, function (error, response) {\r",
+							"        pm.expect(response['code']).to.eql(200);\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoibGVvbi5rZW5uZWR5QHNlY3JldHNlcnZpY2UuZ292IiwiaWF0IjoxNTc4MDQzMDczLCJleHAiOjE1NzgwNDY2NzN9.vzen72ol_Bx3aki11GCClwOuGzyoWbHHPjisy9sC-bo",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"product_id\": 1,\n\t\"name\": \"First Aid Spray\",\n\t\"description\": \"Heals all wounds, single use only\",\n\t\"price\": \"49.99\",\n\t\"image\": \"https://www.evilresource.com/images/entities/full/remake/first-aid-spray.png\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/product/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"product",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5fc961ae-b1c1-409d-8084-b81fdcac7b9b",
+						"exec": [
+							"var url = \"http://localhost:5000/api/v1/product/list\";\r",
+							"var method = 'GET';\r",
+							"\r",
+							"pm.test(\"List all products without bearer token should fail\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: url, \r",
+							"        method: method,\r",
+							"        header: {},\r",
+							"        body: {}\r",
+							"    }, function (error, response) {\r",
+							"        pm.expect(response).to.have.status(401);\r",
+							"    });\r",
+							"});\r",
+							"pm.test(\"List all products bearer token should be successful\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: url, \r",
+							"        method: method,\r",
+							"        header: {\r",
+							"            'Authorization': \"Bearer: \" + pm.globals.get(\"bearer_token\")\r",
+							"        },\r",
+							"      body: {}\r",
+							"    }, function (error, response) {\r",
+							"        var jsonData = response.json();\r",
+							"        pm.expect(Array.isArray(jsonData.result)).to.eql(true);\r",
+							"        pm.expect(response['code']).to.eql(200);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNCIsImlhdCI6MTU3ODExODAzNywiZXhwIjoxNTc4MTIxNjM3fQ.lFtJA18alZRIalZqZX40g71E0BGUuwj5GhagVbEkHtI"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5000/api/v1/product/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"product",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2e7765e4-f1b5-46f1-b464-12df8a401fe3",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNCIsImlhdCI6MTU3ODI4ODQyNCwiZXhwIjoxNTc4MjkyMDI0fQ.9GNxaDXQnoqzF0aQsasdOZyHpGjZVRE0rdywWTYfMdw",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/RogueTimelord/Downloads/ink-ribbon.png"
+						},
+						{
+							"key": "product_id",
+							"value": "17",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/product/upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"product",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attach Products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f222883c-91a2-473e-8be3-e3aed2f68e7d",
+						"exec": [
+							"var url = \"http://localhost:5000/api/v1/product/attach\";\r",
+							"var method = 'POST';\r",
+							"var product_id = pm.globals.get(\"product_id\");\r",
+							"\r",
+							"pm.test(\"Update product without bearer token should fail\", function () {\r",
+							"    pm.sendRequest({\r",
+							"      url: url, \r",
+							"      method: method,\r",
+							"      header: {},\r",
+							"      body: {}\r",
+							"    }, function (error, response) {\r",
+							"        pm.expect(response['code']).to.eql(401);\r",
+							"    });\r",
+							"});\r",
+							"pm.test(\"Update product without all required params should fail - No product_id\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: url,\r",
+							"        method: method,\r",
+							"        header: {\r",
+							"            'Authorization': \"Bearer: \" + pm.globals.get(\"bearer_token\"),\r",
+							"            'Content-Type': 'application/json'\r",
+							"        },\r",
+							"        body: {\r",
+							"          mode: 'raw',\r",
+							"          raw: JSON.stringify({})\r",
+							"        },\r",
+							"    }, function (error, response) {\r",
+							"        pm.expect(response['code']).to.eql(400);\r",
+							"    });\r",
+							"});\r",
+							"pm.test(\"Update product with all required params should succeed\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: url,\r",
+							"        method: method,\r",
+							"        header: {\r",
+							"            'Authorization': \"Bearer: \" + pm.globals.get(\"bearer_token\"),\r",
+							"            'Content-Type': 'application/json'\r",
+							"        },\r",
+							"        body: {\r",
+							"          mode: 'raw',\r",
+							"          raw: JSON.stringify({\r",
+							"                \"product_id\": product_id,\r",
+							"            })\r",
+							"        },\r",
+							"    }, function (error, response) {\r",
+							"        pm.expect(response['code']).to.eql(200);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNCIsImlhdCI6MTU3ODI4ODQyNCwiZXhwIjoxNTc4MjkyMDI0fQ.9GNxaDXQnoqzF0aQsasdOZyHpGjZVRE0rdywWTYfMdw"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"product_id\": 17\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/product/attach",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"product",
+						"attach"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Owned Products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e803d6be-6b76-4fc8-9552-2181a29d46a5",
+						"exec": [
+							"var url = \"http://localhost:5000/api/v1/product/owned\";\r",
+							"var method = 'POST';\r",
+							"var user_id = pm.globals.get(\"user_id\");\r",
+							"\r",
+							"pm.test(\"Owned products without bearer token should fail\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: url, \r",
+							"        method: method,\r",
+							"        header: {},\r",
+							"        body: {}\r",
+							"    }, function (error, response) {\r",
+							"        pm.expect(response).to.have.status(401);\r",
+							"    });\r",
+							"});\r",
+							"pm.test(\"List users without user_id should succeed\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: url, \r",
+							"        method: method,\r",
+							"        header: {\r",
+							"            'Content-Type': 'application/json',\r",
+							"            'Authorization': \"Bearer: \" + pm.globals.get(\"bearer_token\")\r",
+							"        },\r",
+							"        body: {}\r",
+							"    }, function (error, response) {\r",
+							"        var jsonData = response.json();\r",
+							"        pm.expect(Array.isArray(jsonData.result)).to.eql(true);\r",
+							"        pm.expect(response).to.have.status(200);\r",
+							"    });\r",
+							"});\r",
+							"pm.test(\"List users with token and included user_id should succeed\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: url, \r",
+							"        method: method,\r",
+							"        header: {\r",
+							"            'Content-Type': 'application/json',\r",
+							"            'Authorization': \"Bearer: \" + pm.globals.get(\"bearer_token\")\r",
+							"        },\r",
+							"        body: {\r",
+							"            mode: 'raw',\r",
+							"            raw: JSON.stringify({\r",
+							"                \"user_id\": user_id\r",
+							"            })\r",
+							"        }\r",
+							"    }, function (error, response) {\r",
+							"        var jsonData = response.json();\r",
+							"        pm.expect(Array.isArray(jsonData.result)).to.eql(true);\r",
+							"        pm.expect(response['code']).to.eql(200);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNCIsImlhdCI6MTU3ODEzMzg2NiwiZXhwIjoxNTc4MTM3NDY2fQ.2U-ibaShcJPtSxHAc7dHAMGhca1TfBozWqHA268ogoA"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user_id\": 4\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/product/owned",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"product",
+						"owned"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6256a5d5-25a8-454e-898d-5ab4987e724c",
+						"exec": [
+							"var url = \"http://localhost:5000/api/v1/product/remove\";\r",
+							"var method = 'POST';\r",
+							"var product_id = pm.globals.get(\"product_id\");\r",
+							"\r",
+							"pm.test(\"Remove product without bearer token should fail\", function () {\r",
+							"    pm.sendRequest({\r",
+							"      url: url, \r",
+							"      method: method,\r",
+							"      header: {},\r",
+							"      body: {}\r",
+							"    }, function (error, response) {\r",
+							"        pm.expect(response).to.have.status(401);\r",
+							"    });\r",
+							"});\r",
+							"pm.test(\"Remove product without all required params should fail - No product_id\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: url,\r",
+							"        method: method,\r",
+							"        header: {\r",
+							"            'Authorization': \"Bearer: \" + pm.globals.get(\"bearer_token\"),\r",
+							"            'Content-Type': 'application/json'\r",
+							"        },\r",
+							"        body: {\r",
+							"          mode: 'raw',\r",
+							"          raw: JSON.stringify({})\r",
+							"        },\r",
+							"    }, function (error, response) {\r",
+							"        pm.expect(response).to.have.status(400);\r",
+							"    });\r",
+							"});\r",
+							"pm.test(\"Remove product with all required params should succeed\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: url,\r",
+							"        method: method,\r",
+							"        header: {\r",
+							"            'Authorization': \"Bearer: \" + pm.globals.get(\"bearer_token\"),\r",
+							"            'Content-Type': 'application/json'\r",
+							"        },\r",
+							"        body: {\r",
+							"          mode: 'raw',\r",
+							"          raw: JSON.stringify({\r",
+							"                \"product_id\": product_id,\r",
+							"            })\r",
+							"        },\r",
+							"    }, function (error, response) {\r",
+							"        pm.expect(response['code']).to.eql(200);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNCIsImlhdCI6MTU3ODA0NDE0OSwiZXhwIjoxNTc4MDQ3NzQ5fQ.CsjVr3kX59XSQlupTTznGeW-gyJZ2U4Zw1ejX8xhze4"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"product_id\": 1\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/product/remove",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"product",
+						"remove"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a2e0be2c-ffdc-4c2c-b49b-ab227eb6fd28",
+						"exec": [
+							"var url = \"http://localhost:5000/api/v1/product/delete\";\r",
+							"var method = 'POST';\r",
+							"var product_id = pm.globals.get(\"product_id\");\r",
+							"\r",
+							"pm.test(\"Delete product without bearer token should fail\", function () {\r",
+							"    pm.sendRequest({\r",
+							"      url: url, \r",
+							"      method: method,\r",
+							"      header: {},\r",
+							"      body: {}\r",
+							"    }, function (error, response) {\r",
+							"        pm.expect(response).to.have.status(401);\r",
+							"    });\r",
+							"});\r",
+							"pm.test(\"Delete product without all required params should fail - No product_id\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: url,\r",
+							"        method: method,\r",
+							"        header: {\r",
+							"            'Authorization': \"Bearer: \" + pm.globals.get(\"bearer_token\"),\r",
+							"            'Content-Type': 'application/json'\r",
+							"        },\r",
+							"        body: {\r",
+							"          mode: 'raw',\r",
+							"          raw: JSON.stringify({})\r",
+							"        },\r",
+							"    }, function (error, response) {\r",
+							"        pm.expect(response).to.have.status(400);\r",
+							"    });\r",
+							"});\r",
+							"pm.test(\"Delete product with all required params should succeed\", function () {\r",
+							"    pm.sendRequest({\r",
+							"        url: url,\r",
+							"        method: method,\r",
+							"        header: {\r",
+							"            'Authorization': \"Bearer: \" + pm.globals.get(\"bearer_token\"),\r",
+							"            'Content-Type': 'application/json'\r",
+							"        },\r",
+							"        body: {\r",
+							"          mode: 'raw',\r",
+							"          raw: JSON.stringify({\r",
+							"                \"product_id\": product_id,\r",
+							"            })\r",
+							"        },\r",
+							"    }, function (error, response) {\r",
+							"        pm.expect(response['code']).to.eql(200);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoibGVvbi5rZW5uZWR5QHNlY3JldHNlcnZpY2UuZ292IiwiaWF0IjoxNTc4MDQzMDczLCJleHAiOjE1NzgwNDY2NzN9.vzen72ol_Bx3aki11GCClwOuGzyoWbHHPjisy9sC-bo",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"product_id\": 1\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/product/delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"product",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,809 @@
+{
+	"id": "e0827de9-7aa1-4e3e-971f-bf41aa4b798f",
+	"name": "Full Stack Challenge",
+	"allTests": [],
+	"timestamp": "2020-01-06T03:01:13.836Z",
+	"collection_id": "ec3562e4-d5e7-4329-bcf0-1477465561c2",
+	"folder_id": 0,
+	"target_type": "collection",
+	"environment_id": "0",
+	"data": [],
+	"delay": 0,
+	"count": 1,
+	"collection": {
+		"id": "ec3562e4-d5e7-4329-bcf0-1477465561c2",
+		"name": "Full Stack Challenge",
+		"order": [
+			"0f85defa-b79a-4d93-ac0b-134f6e03f8ef",
+			"7f999eed-4299-4e36-b041-c63383253932",
+			"8c22030a-af3a-471a-9426-7088a0954660",
+			"16d8fe1f-b129-4c20-a363-32e621278e50",
+			"95732e84-7fce-436e-9937-ff52e39ae37a",
+			"9e766528-6ffc-48ae-9624-160eedc12f3d",
+			"b59b7ef4-64b7-48f5-a1d7-b7650070c092",
+			"e2eb6461-e570-48d5-870f-6b532bfa636b",
+			"4513bbbb-e269-4b75-a068-f3d110b7e7e3",
+			"64ad7140-fc3f-4cdb-be87-5101c95553f8"
+		],
+		"folders_order": [],
+		"isFavorite": false
+	},
+	"folder": null,
+	"environment": null,
+	"globals": [
+		{
+			"key": "bearer_token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNCIsImlhdCI6MTU3ODI3NzM5MiwiZXhwIjoxNTc4MjgwOTkyfQ.ZStbQhVP102qilrQ6GO0tX7718quP6pDfn-xj35am2A",
+			"enabled": true
+		},
+		{
+			"key": "user_id",
+			"value": "4",
+			"enabled": true
+		},
+		{
+			"key": "product_id",
+			"value": "8",
+			"enabled": true
+		}
+	],
+	"results": [
+		{
+			"name": "Users",
+			"id": "0f85defa-b79a-4d93-ac0b-134f6e03f8ef",
+			"url": "http://localhost:5000/api/v1/users",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"List of users is an array": true
+			},
+			"testPassFailCounts": {
+				"List of users is an array": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"74"
+			],
+			"allTests": [
+				{
+					"List of users is an array": true
+				}
+			],
+			"time": "74",
+			"totalRequestTime": "74",
+			"iterationResults": {}
+		},
+		{
+			"name": "Sign-In",
+			"id": "7f999eed-4299-4e36-b041-c63383253932",
+			"url": "http://localhost:5000/api/v1/signin",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"Sign-in with invalid credentials should return error": true,
+				"Successful login should contain a bearer token": true
+			},
+			"testPassFailCounts": {
+				"Sign-in with invalid credentials should return error": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Successful login should contain a bearer token": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"81"
+			],
+			"allTests": [
+				{
+					"Sign-in with invalid credentials should return error": true,
+					"Successful login should contain a bearer token": true
+				}
+			],
+			"time": "81",
+			"totalRequestTime": "81",
+			"iterationResults": {}
+		},
+		{
+			"name": "Add Product",
+			"id": "8c22030a-af3a-471a-9426-7088a0954660",
+			"url": "http://localhost:5000/api/v1/product/add",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized",
+				"detail": {
+					"name": "Unauthorized",
+					"detail": "Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource."
+				}
+			},
+			"tests": {
+				"Add product without bearer token should fail": true,
+				"Add product without all required params should fail - No Name": true,
+				"Add product without all required params should fail - No Desc": true,
+				"Add product without all required params should fail - No Price": true,
+				"Add product with all required params should succeed": true
+			},
+			"testPassFailCounts": {
+				"Add product without bearer token should fail": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Add product without all required params should fail - No Name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Add product without all required params should fail - No Desc": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Add product without all required params should fail - No Price": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Add product with all required params should succeed": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"4"
+			],
+			"allTests": [
+				{
+					"Add product without bearer token should fail": true,
+					"Add product without all required params should fail - No Name": true,
+					"Add product without all required params should fail - No Desc": true,
+					"Add product without all required params should fail - No Price": true,
+					"Add product with all required params should succeed": true
+				}
+			],
+			"time": "4",
+			"totalRequestTime": "4",
+			"iterationResults": {}
+		},
+		{
+			"name": "Update Product",
+			"id": "16d8fe1f-b129-4c20-a363-32e621278e50",
+			"url": "http://localhost:5000/api/v1/product/update",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized",
+				"detail": {
+					"name": "Unauthorized",
+					"detail": "Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource."
+				}
+			},
+			"tests": {
+				"Update product without bearer token should fail": true,
+				"Update product without all required params should fail - No ID": true,
+				"Update product without all required params should fail - No Name": true,
+				"Update product without all required params should fail - No Desc": true,
+				"Update product without all required params should fail - No Price": true,
+				"Update product with all required params should succeed": true
+			},
+			"testPassFailCounts": {
+				"Update product without bearer token should fail": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Update product without all required params should fail - No ID": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Update product without all required params should fail - No Name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Update product without all required params should fail - No Desc": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Update product without all required params should fail - No Price": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Update product with all required params should succeed": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"3"
+			],
+			"allTests": [
+				{
+					"Update product without bearer token should fail": true,
+					"Update product without all required params should fail - No ID": true,
+					"Update product without all required params should fail - No Name": true,
+					"Update product without all required params should fail - No Desc": true,
+					"Update product without all required params should fail - No Price": true,
+					"Update product with all required params should succeed": true
+				}
+			],
+			"time": "3",
+			"totalRequestTime": "3",
+			"iterationResults": {}
+		},
+		{
+			"name": "List Products",
+			"id": "95732e84-7fce-436e-9937-ff52e39ae37a",
+			"url": "http://localhost:5000/api/v1/product/list",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized",
+				"detail": {
+					"name": "Unauthorized",
+					"detail": "Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource."
+				}
+			},
+			"tests": {
+				"List all products without bearer token should fail": true,
+				"List all products bearer token should be successful": true
+			},
+			"testPassFailCounts": {
+				"List all products without bearer token should fail": {
+					"pass": 1,
+					"fail": 0
+				},
+				"List all products bearer token should be successful": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"3"
+			],
+			"allTests": [
+				{
+					"List all products without bearer token should fail": true,
+					"List all products bearer token should be successful": true
+				}
+			],
+			"time": "3",
+			"totalRequestTime": "3",
+			"iterationResults": {}
+		},
+		{
+			"name": "Get Product",
+			"id": "9e766528-6ffc-48ae-9624-160eedc12f3d",
+			"url": "http://localhost:5000/api/v1/product/get",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized",
+				"detail": {
+					"name": "Unauthorized",
+					"detail": "Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource."
+				}
+			},
+			"tests": {
+				"Get product without bearer token should fail": true,
+				"Get product without product_id should fail": true,
+				"Get product with product_id should succeed": true
+			},
+			"testPassFailCounts": {
+				"Get product without bearer token should fail": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Get product without product_id should fail": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Get product with product_id should succeed": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"3"
+			],
+			"allTests": [
+				{
+					"Get product without bearer token should fail": true,
+					"Get product without product_id should fail": true,
+					"Get product with product_id should succeed": true
+				}
+			],
+			"time": "3",
+			"totalRequestTime": "3",
+			"iterationResults": {}
+		},
+		{
+			"name": "Attach Products",
+			"id": "b59b7ef4-64b7-48f5-a1d7-b7650070c092",
+			"url": "http://localhost:5000/api/v1/product/attach",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized",
+				"detail": {
+					"name": "Unauthorized",
+					"detail": "Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource."
+				}
+			},
+			"tests": {
+				"Update product without bearer token should fail": true,
+				"Update product without all required params should fail - No product_id": true,
+				"Update product with all required params should succeed": true
+			},
+			"testPassFailCounts": {
+				"Update product without bearer token should fail": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Update product without all required params should fail - No product_id": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Update product with all required params should succeed": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"3"
+			],
+			"allTests": [
+				{
+					"Update product without bearer token should fail": true,
+					"Update product without all required params should fail - No product_id": true,
+					"Update product with all required params should succeed": true
+				}
+			],
+			"time": "3",
+			"totalRequestTime": "3",
+			"iterationResults": {}
+		},
+		{
+			"name": "Owned Products",
+			"id": "e2eb6461-e570-48d5-870f-6b532bfa636b",
+			"url": "http://localhost:5000/api/v1/product/owned",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized",
+				"detail": {
+					"name": "Unauthorized",
+					"detail": "Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource."
+				}
+			},
+			"tests": {
+				"Owned products without bearer token should fail": true,
+				"List users without user_id should succeed": true,
+				"List users with token and included user_id should succeed": true
+			},
+			"testPassFailCounts": {
+				"Owned products without bearer token should fail": {
+					"pass": 1,
+					"fail": 0
+				},
+				"List users without user_id should succeed": {
+					"pass": 1,
+					"fail": 0
+				},
+				"List users with token and included user_id should succeed": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"3"
+			],
+			"allTests": [
+				{
+					"Owned products without bearer token should fail": true,
+					"List users without user_id should succeed": true,
+					"List users with token and included user_id should succeed": true
+				}
+			],
+			"time": "3",
+			"totalRequestTime": "3",
+			"iterationResults": {}
+		},
+		{
+			"name": "Remove Products",
+			"id": "4513bbbb-e269-4b75-a068-f3d110b7e7e3",
+			"url": "http://localhost:5000/api/v1/product/remove",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized",
+				"detail": {
+					"name": "Unauthorized",
+					"detail": "Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource."
+				}
+			},
+			"tests": {
+				"Remove product without bearer token should fail": true,
+				"Remove product without all required params should fail - No product_id": true,
+				"Remove product with all required params should succeed": true
+			},
+			"testPassFailCounts": {
+				"Remove product without bearer token should fail": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Remove product without all required params should fail - No product_id": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Remove product with all required params should succeed": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"21"
+			],
+			"allTests": [
+				{
+					"Remove product without bearer token should fail": true,
+					"Remove product without all required params should fail - No product_id": true,
+					"Remove product with all required params should succeed": true
+				}
+			],
+			"time": "21",
+			"totalRequestTime": "21",
+			"iterationResults": {}
+		},
+		{
+			"name": "Delete Product",
+			"id": "64ad7140-fc3f-4cdb-be87-5101c95553f8",
+			"url": "http://localhost:5000/api/v1/product/delete",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized",
+				"detail": {
+					"name": "Unauthorized",
+					"detail": "Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource."
+				}
+			},
+			"tests": {
+				"Delete product without bearer token should fail": true,
+				"Delete product without all required params should fail - No product_id": true,
+				"Delete product with all required params should succeed": true
+			},
+			"testPassFailCounts": {
+				"Delete product without bearer token should fail": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Delete product without all required params should fail - No product_id": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Delete product with all required params should succeed": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"6"
+			],
+			"allTests": [
+				{
+					"Delete product without bearer token should fail": true,
+					"Delete product without all required params should fail - No product_id": true,
+					"Delete product with all required params should succeed": true
+				}
+			],
+			"time": "6",
+			"totalRequestTime": "6",
+			"iterationResults": {}
+		}
+	],
+	"totalPass": 31,
+	"totalFail": 0,
+	"totalTime": 201,
+	"lifecycle": "done",
+	"requests": [
+		{
+			"name": "Users",
+			"id": "0f85defa-b79a-4d93-ac0b-134f6e03f8ef",
+			"url": "http://localhost:5000/api/v1/users",
+			"time": "2020-01-06T03:01:13.836Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"List of users is an array": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "Sign-In",
+			"id": "7f999eed-4299-4e36-b041-c63383253932",
+			"url": "http://localhost:5000/api/v1/signin",
+			"time": "2020-01-06T03:01:13.836Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Sign-in with invalid credentials should return error": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Successful login should contain a bearer token": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "Add Product",
+			"id": "8c22030a-af3a-471a-9426-7088a0954660",
+			"url": "http://localhost:5000/api/v1/product/add",
+			"time": "2020-01-06T03:01:13.836Z",
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized",
+				"detail": {
+					"name": "Unauthorized",
+					"detail": "Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource."
+				}
+			},
+			"testPassFailCounts": {
+				"Add product without bearer token should fail": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Add product without all required params should fail - No Name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Add product without all required params should fail - No Desc": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Add product without all required params should fail - No Price": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Add product with all required params should succeed": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "Update Product",
+			"id": "16d8fe1f-b129-4c20-a363-32e621278e50",
+			"url": "http://localhost:5000/api/v1/product/update",
+			"time": "2020-01-06T03:01:13.836Z",
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized",
+				"detail": {
+					"name": "Unauthorized",
+					"detail": "Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource."
+				}
+			},
+			"testPassFailCounts": {
+				"Update product without bearer token should fail": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Update product without all required params should fail - No ID": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Update product without all required params should fail - No Name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Update product without all required params should fail - No Desc": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Update product without all required params should fail - No Price": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Update product with all required params should succeed": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "List Products",
+			"id": "95732e84-7fce-436e-9937-ff52e39ae37a",
+			"url": "http://localhost:5000/api/v1/product/list",
+			"time": "2020-01-06T03:01:13.836Z",
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized",
+				"detail": {
+					"name": "Unauthorized",
+					"detail": "Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource."
+				}
+			},
+			"testPassFailCounts": {
+				"List all products without bearer token should fail": {
+					"pass": 1,
+					"fail": 0
+				},
+				"List all products bearer token should be successful": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "Get Product",
+			"id": "9e766528-6ffc-48ae-9624-160eedc12f3d",
+			"url": "http://localhost:5000/api/v1/product/get",
+			"time": "2020-01-06T03:01:13.836Z",
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized",
+				"detail": {
+					"name": "Unauthorized",
+					"detail": "Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource."
+				}
+			},
+			"testPassFailCounts": {
+				"Get product without bearer token should fail": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Get product without product_id should fail": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Get product with product_id should succeed": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "Attach Products",
+			"id": "b59b7ef4-64b7-48f5-a1d7-b7650070c092",
+			"url": "http://localhost:5000/api/v1/product/attach",
+			"time": "2020-01-06T03:01:13.836Z",
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized",
+				"detail": {
+					"name": "Unauthorized",
+					"detail": "Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource."
+				}
+			},
+			"testPassFailCounts": {
+				"Update product without bearer token should fail": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Update product without all required params should fail - No product_id": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Update product with all required params should succeed": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "Owned Products",
+			"id": "e2eb6461-e570-48d5-870f-6b532bfa636b",
+			"url": "http://localhost:5000/api/v1/product/owned",
+			"time": "2020-01-06T03:01:13.836Z",
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized",
+				"detail": {
+					"name": "Unauthorized",
+					"detail": "Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource."
+				}
+			},
+			"testPassFailCounts": {
+				"Owned products without bearer token should fail": {
+					"pass": 1,
+					"fail": 0
+				},
+				"List users without user_id should succeed": {
+					"pass": 1,
+					"fail": 0
+				},
+				"List users with token and included user_id should succeed": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "Remove Products",
+			"id": "4513bbbb-e269-4b75-a068-f3d110b7e7e3",
+			"url": "http://localhost:5000/api/v1/product/remove",
+			"time": "2020-01-06T03:01:13.836Z",
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized",
+				"detail": {
+					"name": "Unauthorized",
+					"detail": "Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource."
+				}
+			},
+			"testPassFailCounts": {
+				"Remove product without bearer token should fail": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Remove product without all required params should fail - No product_id": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Remove product with all required params should succeed": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "Delete Product",
+			"id": "64ad7140-fc3f-4cdb-be87-5101c95553f8",
+			"url": "http://localhost:5000/api/v1/product/delete",
+			"time": "2020-01-06T03:01:13.836Z",
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized",
+				"detail": {
+					"name": "Unauthorized",
+					"detail": "Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource."
+				}
+			},
+			"testPassFailCounts": {
+				"Delete product without bearer token should fail": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Delete product without all required params should fail - No product_id": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Delete product with all required params should succeed": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		}
+	],
+	"synced": false
+}
